@@ -1,5 +1,5 @@
 function charCount(word) {
-    return word.length;
+    return word.length
 }
 
-console.log('Количество букв в слове "привет" = ' + charCount('привет'));
+console.log('Количество букв в слове "привет" = ' + charCount('привет'))
