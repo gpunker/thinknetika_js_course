@@ -35,8 +35,8 @@ checkAccess(user)
 console.log('Пользователь не оплатил подписку:')
 var user = {
     age: 18,
-    paid: true,
-    blocked: true,
+    paid: false,
+    blocked: false,
     badUsername: false,
     isAdmin: false
 }
