@@ -15,8 +15,9 @@ function sortDesc2(array) {
         return array
     } else {
         let pivot = array[0]
-        let less = array.slice(1).filter(elem => elem < pivot)
-        let greater = array.slice(1).filter(elem => elem > pivot)
+        let rest = array.slice(1)
+        let less = rest.filter(elem => elem < pivot)
+        let greater = rest.filter(elem => elem > pivot)
 
         return sortDesc2(greater).concat([pivot].concat(sortDesc2(less)))
     }

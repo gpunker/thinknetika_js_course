@@ -7,7 +7,7 @@ function randomSort(array) {
     let sorted = []
 
     while(arr.length > 0) {
-        let i = getRandomIntInclusive(0, arr.length-1);
+        let i = getRandomIntInclusive(0, arr.length - 1);
         sorted.push(arr[i])
         arr.splice(i, 1)
     }
