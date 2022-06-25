@@ -37,6 +37,6 @@ const sortedBySalary = employees.sort((a, b) => a.salary - b.salary)
 console.log('Отсортированные по зарплате:')
 console.log(sortedBySalary)
 
-const filtered = employees.filter(elem => elem.salary > 4500 && elem.age > 25)
+const filtered = employees.filter(employment => employment.salary > 4500 && employment.age > 25)
 console.log('С ЗП > 4500 и возрастом > 25 лет:')
 console.log(filtered)

@@ -5,9 +5,11 @@
 // В теории в массивах могут оказаться объекты и для их сравнения придется писать отдельную
 // рекрсивную функцию. Могу дописать, коли нужно.
 function arraysCompare(array1, array2) {
-    const maxLength = array1.length > array2.length ? array1.length : array2.length
+    if(array1.length != array2.length) {
+        return false;
+    }
 
-    for (let i = 0; i < maxLength; i++) {
+    for (let i = 0; i < array1.length; i++) {
         if (array1[i] != array2[i]) {
             return false
         }
