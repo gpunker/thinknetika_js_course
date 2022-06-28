@@ -16,31 +16,30 @@
  * calculate(2, 10); // { value: 1024, fromCache: true}
  */
 
-function calculate(num, pow) {
+ function cache() {
     let cachedNum = 0
-    console.log(cachedNum)
     let cachedPow = 0
     let cachedResult = 0
 
-    if (cachedNum != num && cachedPow != pow) {
-        return {
-            value: power(num, pow),
-            fromCache: false
-        }
-    }
-
-    return {
-        value: cachedResult,
-        fromCache: true
-    }
-
     function power(num, pow) {
+      let fromCache = num === cachedNum && pow === cachedPow
+
+      if (!fromCache) {
         cachedNum = num
         cachedPow = pow
         cachedResult = Math.pow(num, pow)
-        return cachedResult
+      }
+
+      return {
+        value: cachedResult,
+        fromCache: fromCache
+      }
     }
+
+    return power
 }
+
+const calculate = cache()
 
 console.log(calculate(2,2))
 console.log(calculate(2,2))
