@@ -17,22 +17,32 @@
  */
 
  function cache() {
-    let cachedNum = 0
-    let cachedPow = 0
-    let cachedResult = 0
+    const cached = {}
+
+    function generateCacheKey(num, pow) {
+      return `${num}_${pow}`
+    }
+
+    function getFromCache(num, pow) {
+      return cached[generateCacheKey(num, pow)]
+    }
 
     function power(num, pow) {
-      let fromCache = num === cachedNum && pow === cachedPow
+      const fromCache = getFromCache(num, pow)
 
-      if (!fromCache) {
-        cachedNum = num
-        cachedPow = pow
-        cachedResult = Math.pow(num, pow)
+      if (fromCache !== undefined) {
+        return {
+          value: fromCache,
+          fromCache: true
+        }
       }
 
+      const result = Math.pow(num, pow)
+      cached[generateCacheKey(num, pow)] = result
+
       return {
-        value: cachedResult,
-        fromCache: fromCache
+        value: result,
+        fromCache: false
       }
     }
 
