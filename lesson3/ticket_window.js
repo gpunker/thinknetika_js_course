@@ -18,7 +18,7 @@ function TicketWindow() {
     }
 
     function isEventExists(eventName) {
-        return events[eventName] != undefined && typeof events[eventName] === 'object'
+        return events[eventName] !== undefined && typeof events[eventName] === 'object'
     }
 
     return {

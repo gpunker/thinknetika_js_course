@@ -22,7 +22,7 @@
 
 function Calc() {
     let history = []
-    let operations = {
+    const operations = {
         '+': (a, b) => a + b,
         '-': (a, b) => a - b
     }
@@ -33,10 +33,10 @@ function Calc() {
   
     return {
       operation: (expression) => {
-        let tokenized = expression.split("").filter((i) => i != ' ')
-        let a = parseInt(tokenized[0])
-        let b = parseInt(tokenized[2])
-        let operation = tokenized[1]
+        const tokenized = expression.split("").filter((i) => i != ' ')
+        const a = parseInt(tokenized[0])
+        const b = parseInt(tokenized[2])
+        const operation = tokenized[1]
 
         addHistory(operation, a, b)
 
