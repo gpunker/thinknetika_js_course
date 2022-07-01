@@ -3,7 +3,7 @@
  * должна быть возможность задавать размеры обеим фигурам и получать их площадь и периметр
  */
 
-var Rectangle = function(a, b) {
+const Rectangle = function(a, b) {
     this.a = a
     this.b = b
 }
@@ -17,18 +17,17 @@ Rectangle.prototype = {
     }
 }
 
-var Square = function(a) {
+const Square = function(a) {
     this.a = a
+    this.b = a
 }
 
-Square.prototype.constructor = Rectangle
-
+Square.prototype = new Rectangle
 
 const rect = new Rectangle(4, 8)
 console.log(`Периметр прямоугольника: ${rect.perimeter()}`)
 console.log(`Периметр прямоугольника: ${rect.square()}`)
 
 const square = new Square(5)
-console.log(square)
 console.log(`Периметр квадрата: ${square.perimeter()}`)
 console.log(`Периметр квадрата: ${square.square()}`)
