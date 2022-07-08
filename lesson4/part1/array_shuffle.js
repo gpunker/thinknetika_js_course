@@ -4,16 +4,7 @@
 */
 
 Array.prototype.shuffle = function() {
-    const shuffled = []
-    
-    while(this.length > 0) {
-        const i = Math.floor(Math.random() * this.length);
-        shuffled.push(this[i])
-        this.splice(i, 1)
-    }
-
-    Object.assign(this, shuffled)
-    return
+    this.sort(() => Math.random() - 0.5);
 }
 
 const arr = [1, 2, 3, 4, 5]
