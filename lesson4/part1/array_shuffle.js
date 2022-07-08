@@ -5,16 +5,17 @@
 
 Array.prototype.shuffle = function() {
     const shuffled = []
-    const copy = [...this]
     
-    while(copy.length > 0) {
-        const i = Math.floor(Math.random() * copy.length);
-        shuffled.push(copy[i])
-        copy.splice(i, 1)
+    while(this.length > 0) {
+        const i = Math.floor(Math.random() * this.length);
+        shuffled.push(this[i])
+        this.splice(i, 1)
     }
-    
-    return shuffled
+
+    Object.assign(this, shuffled)
+    return
 }
 
 const arr = [1, 2, 3, 4, 5]
-console.log(arr.shuffle())
+arr.shuffle()
+console.log(arr)
