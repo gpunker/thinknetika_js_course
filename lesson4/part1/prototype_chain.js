@@ -24,17 +24,20 @@
 //   startVacation: function () {}
 // };
 
-const Human = function({ name, lastName, phoneNumber }) {
+const Human = function(name, lastName, phoneNumber) {
     this.name = name
     this.lastName = lastName
     this.phoneNumber = phoneNumber
-
-    this.eat = function() { return `${this.name} is eating` }
-    this.sleep = function() { return `${this.name} is sleeping` }
-    this.callFriend = function() { return `${this.name} is calling friend` }
 }
 
-const Employee = function({
+Human.prototype = {
+    eat: function() { return `${this.name} is eating` },
+    sleep: function() { return `${this.name} is sleeping` },
+    callFriend: function() { return `${this.name} is calling friend` },
+}
+Human.prototype.constructor = Human
+
+const Employee = function(
     name,
     lastName,
     phoneNumber,
@@ -43,9 +46,10 @@ const Employee = function({
     salaryCurrency,
     location,
     department 
-}) {
-    Human.call(this, { name: name, lastName: lastName, phoneNumber: phoneNumber })    
-
+) {
+    this.name = name
+    this.lastName = lastName
+    this.phoneNumber = phoneNumber
     this.position = position
     this.baseSalary = baseSalary
     this.salaryCurrency = salaryCurrency
@@ -53,7 +57,40 @@ const Employee = function({
     this.department = department
 }
 
-const WorkingEmployee = function({
+Employee.prototype = Object.create(Human.prototype)
+Employee.prototype.constructor = Employee
+
+const WorkingEmployee = function(
+    name,
+    lastName,
+    phoneNumber,
+    position,
+    baseSalary,
+    salaryCurrency,
+    location,
+    department,
+    startDate,
+) {
+    this.name = name
+    this.lastName = lastName
+    this.phoneNumber = phoneNumber
+    this.position = position
+    this.baseSalary = baseSalary
+    this.salaryCurrency = salaryCurrency
+    this.location = location
+    this.department = department
+    this.startDate = startDate
+}
+
+WorkingEmployee.prototype = Object.create(Employee.prototype)
+WorkingEmployee.prototype.constructor = WorkingEmployee
+
+WorkingEmployee.prototype.writeReport = function() { return `${this.name} is writing a report` }
+WorkingEmployee.prototype.organizeMeeting = function() { return `${this.name} is starting a meeting` }
+WorkingEmployee.prototype.retire = function() { return `${this.name} is retiring` }
+WorkingEmployee.prototype.startVacation = function() { return `${this.name} is going to vacation` }
+
+const ExEmployee = function(
     name,
     lastName,
     phoneNumber,
@@ -64,39 +101,22 @@ const WorkingEmployee = function({
     department,
     startDate,
     endDate
-}) {
-    Employee.call(this, {
-        name: name,
-        lastName: lastName,
-        phoneNumber: phoneNumber,
-        position: position,
-        baseSalary: baseSalary,
-        salaryCurrency: salaryCurrency,
-        location: location,
-        department: department,
-    })
-
+) {
+    this.name = name
+    this.lastName = lastName
+    this.phoneNumber = phoneNumber
+    this.position = position
+    this.baseSalary = baseSalary
+    this.salaryCurrency = salaryCurrency
+    this.location = location
+    this.department = department
     this.startDate = startDate
     this.endDate = endDate
-
-    this.writeReport = function() { return `${this.name} is writing a report` }
-    this.organizeMeeting = function() { return `${this.name} is starting a meeting` }
-    this.retire = function() { return `${this.name} is retiring` }
-    this.startVacation = function() { return `${this.name} is going to vacation` }
 }
 
-Employee.prototype = Object.create(Human.prototype)
-Object.defineProperty(Employee.prototype, 'constructor', {
-    value: Employee,
-    enumerable: false,
-    writable: true
-})
-WorkingEmployee.prototype = Object.create(Employee.prototype)
-Object.defineProperty(WorkingEmployee.prototype, 'constructor', {
-    value: WorkingEmployee,
-    enumerable: false,
-    writable: true
-})
+ExEmployee.prototype = Object.create(WorkingEmployee.prototype)
+ExEmployee.prototype.constructor = ExEmployee
+
 
 const john = {
     name: "John",
@@ -111,8 +131,20 @@ const john = {
     phoneNumber: "+1234567890"
 }
 
-const employee = new WorkingEmployee(john)
-console.log(WorkingEmployee.prototype.constructor)
+const employee = new ExEmployee(
+    john.name,
+    john.lastName,
+    john.phoneNumber,
+    john.position,
+    john.baseSalary,
+    john.salaryCurrency,
+    john.location,
+    john.department,
+    john.startDate,
+    john.endDate
+)
+
+console.log(ExEmployee.prototype)
 console.log(employee)
 console.log(employee.eat())
 console.log(employee.sleep())
