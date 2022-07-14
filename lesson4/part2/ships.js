@@ -37,19 +37,30 @@ const SailShip = function(mastCount, sailArea) {
 SailShip.prototype = new Ship
 
 const Shipyard = function() {
+    function unimplemented(funcName) {
+        throw new Error(`Function ${funcName} is unimplemented`)
+    }
+
     this.paint = function(ship, color) { 
         ship.color = color
         return ship
     }
+
     this.swap = function(ship) {
-        return Object.create(ship)
+        switch (true) {
+            case ship instanceof MotorShip:
+                return new MotorShip(ship.engineHp, ship.frameMaterial)
+            case ship instanceof SailShip:
+                return new SailShip(ship.mastCount, ship.sailArea)
+        }
     }
     this.repair = function(ship) {
         ship.broken = false
         return ship
     }
+
     this.build = function() {
-        throw new Error('Function build is unimplemented')
+        unimplemented('build')
     }
 }
 
@@ -97,10 +108,12 @@ motorShipyard.paint(motorShip, 'red')
 console.log(motorShip)
 console.log('меняем моторный корабль')
 const swapedMotorship = motorShipyard.swap(motorShip)
+console.log(swapedMotorship)
+console.log()
 
 const sailShipyard = new SailShipyard()
 console.log('строим парусный корабль')
-const sailShip = sailShipyard.build(350, 'metal')
+const sailShip = sailShipyard.build(2, 25)
 console.log(sailShip)
 console.log(Object.getPrototypeOf(sailShip))
 console.log('ломаем парусный корабль')
@@ -114,6 +127,7 @@ sailShipyard.paint(sailShip, 'blue')
 console.log(sailShip)
 console.log('меняем парусный корабль')
 const swapedSailhip = sailShipyard.swap(sailShip)
+console.log(swapedSailhip)
 
 console.log('пытаемся отремонтировать парусный корабль в верфи для моторных кораблей')
 motorShipyard.repair(swapedSailhip)
