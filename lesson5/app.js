@@ -4,11 +4,20 @@ class BaseFigure {
         this.color = color
         this.desk = desk
         this.cell = cell
+
+        this.#x = cell[0]
+        this.#y = Number(cell[1])
     }
 
     moves() {
         throw Error('Function `moves` is not implemented')
     }
+
+    #x = null
+    #y = null
+
+    get x() { return this.#x }
+    get y() { return this.#y }
 }
 
 class Pawn extends BaseFigure {
@@ -20,24 +29,22 @@ class Pawn extends BaseFigure {
 
     moves() {
         let available = []
-        let x = this.cell[0]
-        let y = Number(this.cell[1])
 
         // проверяем проход вперед
-        if (this.desk.coords[`${x}${y + 1}`] === null) {
-            available.push(`${x}${y + 1}`)
+        if (this.desk.coords[`${this.x}${this.y + 1}`] === null) {
+            available.push(`${this.x}${this.y + 1}`)
 
-            if (this.doubleMove && this.desk.coords[`${x}${y + 2}`] === null) {
-                available.push(`${x}${y + 2}`)
+            if (this.doubleMove && this.desk.coords[`${this.x}${this.y + 2}`] === null) {
+                available.push(`${this.x}${this.y + 2}`)
             }
         }
 
-        // проверяем возможность срубить фигуру
-        let xIndex = Desk.x.findIndex( (item) => x === item )
+        // проверяем возможность пройти по диагонали, чтобы срубить фигуру
+        let xIndex = Desk.x.findIndex( (item) => this.x === item )
         let availableAttacks = [Desk.x[xIndex - 1], Desk.x[xIndex + 1]]
         availableAttacks.forEach((aX) => {
-            if (aX !== undefined && this.desk.coords[`${aX}${y + 1}`] !== null) {
-                available.push(`${aX}${y + 1}`)
+            if (aX !== undefined && this.desk.coords[`${aX}${this.y + 1}`] !== null) {
+                available.push(`${aX}${this.y + 1}`)
             }
         })
 
