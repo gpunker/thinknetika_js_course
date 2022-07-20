@@ -4,20 +4,11 @@ class BaseFigure {
         this.color = color
         this.desk = desk
         this.cell = cell
-
-        this.#x = cell[0]
-        this.#y = Number(cell[1])
     }
 
     moves() {
         throw Error('Function `moves` is not implemented')
     }
-
-    #x = null
-    #y = null
-
-    get x() { return this.#x }
-    get y() { return this.#y }
 }
 
 class Pawn extends BaseFigure {
@@ -28,27 +19,7 @@ class Pawn extends BaseFigure {
     }
 
     moves() {
-        let available = []
-
-        // проверяем проход вперед
-        if (this.desk.coords[`${this.x}${this.y + 1}`] === null) {
-            available.push(`${this.x}${this.y + 1}`)
-
-            if (this.doubleMove && this.desk.coords[`${this.x}${this.y + 2}`] === null) {
-                available.push(`${this.x}${this.y + 2}`)
-            }
-        }
-
-        // проверяем возможность пройти по диагонали, чтобы срубить фигуру
-        let xIndex = Desk.x.findIndex( (item) => this.x === item )
-        let availableAttacks = [Desk.x[xIndex - 1], Desk.x[xIndex + 1]]
-        availableAttacks.forEach((aX) => {
-            if (aX !== undefined && this.desk.coords[`${aX}${this.y + 1}`] !== null) {
-                available.push(`${aX}${this.y + 1}`)
-            }
-        })
-
-        return available
+        return 'Ходы для пешки'
     }
 }
 
@@ -56,11 +27,19 @@ class Horse extends BaseFigure {
     constructor(color, desk, cell) {
         super(color, desk, cell)
     }
+
+    moves() {
+        return 'Ходы для коня'
+    }
 }
 
 class Bishop extends BaseFigure {
     constructor(color, desk, cell) {
         super(color, desk, cell)
+    }
+
+    moves() {
+        return 'Ходы для слона'
     }
 }
 
@@ -68,17 +47,29 @@ class Rook extends BaseFigure {
     constructor(color, desk, cell) {
         super(color, desk, cell)
     }
+
+    moves() {
+        return 'Ходы для ладьи'
+    }
 }
 
 class Queen extends BaseFigure {
     constructor(color, desk, cell) {
         super(color, desk, cell)
     }
+
+    moves() {
+        return 'Ходы для ферзя'
+    }
 }
 
 class King extends BaseFigure {
     constructor(color, desk, cell) {
         super(color, desk, cell)
+    }
+
+    moves() {
+        return 'Ходы для короля'
     }
 }
 
@@ -96,31 +87,23 @@ class Desk {
 
         // генерируем фигуры на доске
         // белые
-        coords['A1'] = new Rook('white', this, 'A1'),
-        coords['B1'] = new Horse('white', this, 'B1'),
-        coords['C1'] = new Bishop('white', this, 'C1'),
-        coords['D1'] = new Queen('white', this, 'D1'),
-        coords['E1'] = new King('white', this, 'E1'),
-        coords['F1'] = new Bishop('white', this, 'F1'),
-        coords['G1'] = new Horse('white', this, 'G1'),
-        coords['H1'] = new Rook('white', this, 'H1'),
-        coords['A2'] = new Pawn('white', this, 'A2'),
-        coords['B2'] = new Pawn('white', this, 'B2'),
-        coords['C2'] = new Pawn('white', this, 'C2'),
-        coords['D2'] = new Pawn('white', this, 'D2'),
-        coords['E2'] = new Pawn('white', this, 'E2'),
-        coords['F2'] = new Pawn('white', this, 'F2'),
-        coords['G2'] = new Pawn('white', this, 'G2'),
-        coords['H2'] = new Pawn('white', this, 'H2'),
+        coords['A1'] = new Rook('white', this, 'A1')
+        coords['B1'] = new Horse('white', this, 'B1')
+        coords['C1'] = new Bishop('white', this, 'C1')
+        coords['D1'] = new Queen('white', this, 'D1')
+        coords['E1'] = new King('white', this, 'E1')
+        coords['F1'] = new Bishop('white', this, 'F1')
+        coords['G1'] = new Horse('white', this, 'G1')
+        coords['H1'] = new Rook('white', this, 'H1')
+
+        for (let i = 0; i < Desk.x.length; i++) {
+            coords[`${Desk.x[i]}2`] = new Pawn('white', this, `${Desk.x[i]}2`)
+        }
+        
         // черные
-        coords['A7'] = new Pawn('black', this, 'A7'),
-        coords['B7'] = new Pawn('black', this, 'B7'),
-        coords['C7'] = new Pawn('black', this, 'C7'),
-        coords['D7'] = new Pawn('black', this, 'D7'),
-        coords['E7'] = new Pawn('black', this, 'E7'),
-        coords['F7'] = new Pawn('black', this, 'F7'),
-        coords['G7'] = new Pawn('black', this, 'G7'),
-        coords['H7'] = new Pawn('black', this, 'H7'),
+        for (let i = 0; i < Desk.x.length; i++) {
+            coords[`${Desk.x[i]}7`] = new Pawn('white', this, `${Desk.x[i]}7`)
+        }
         coords['A8'] = new Rook('black', this, 'A8'),
         coords['B8'] = new Horse('black', this, 'B8'),
         coords['C8'] = new Bishop('black', this, 'C8'),
@@ -143,8 +126,7 @@ class Desk {
 
 // игра
 class Game {
-    constructor() {
-    }
+    constructor() {}
     
     #state = Game.states[0]
     #desk = new Desk()
@@ -162,5 +144,3 @@ class Game {
     get turnCount() { return this.#turnCount }
     get state() { return this.#state }
 }
-
-console.log((new Game).desk.coords['A2'].moves())
