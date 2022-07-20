@@ -1,45 +1,77 @@
 // фигуры
 class BaseFigure {
-    constructor(color, desk) {
+    constructor(color, desk, cell) {
         this.color = color
         this.desk = desk
+        this.cell = cell
+    }
+
+    moves() {
+        throw Error('Function `moves` is not implemented')
     }
 }
 
 class Pawn extends BaseFigure {
-    constructor(color, desk) {
-        super(color, desk)
+    constructor(color, desk, cell) {
+        super(color, desk, cell)
         this.canEvolve = false
+        this.doubleMove = true
+    }
+
+    moves() {
+        let available = []
+        let x = this.cell[0]
+        let y = Number(this.cell[1])
+
+        // проверяем проход вперед
+        if (this.desk.coords[`${x}${y + 1}`] === null) {
+            available.push(`${x}${y + 1}`)
+
+            if (this.doubleMove && this.desk.coords[`${x}${y + 2}`] === null) {
+                available.push(`${x}${y + 2}`)
+            }
+        }
+
+        // проверяем возможность срубить фигуру
+        let xIndex = Desk.x.findIndex( (item) => x === item )
+        let availableAttacks = [Desk.x[xIndex - 1], Desk.x[xIndex + 1]]
+        availableAttacks.forEach((aX) => {
+            if (aX !== undefined && this.desk.coords[`${aX}${y + 1}`] !== null) {
+                available.push(`${aX}${y + 1}`)
+            }
+        })
+
+        return available
     }
 }
 
 class Horse extends BaseFigure {
-    constructor(color, desk) {
-        super(color, desk)
+    constructor(color, desk, cell) {
+        super(color, desk, cell)
     }
 }
 
 class Bishop extends BaseFigure {
-    constructor(color, desk) {
-        super(color, desk)
+    constructor(color, desk, cell) {
+        super(color, desk, cell)
     }
 }
 
 class Rook extends BaseFigure {
-    constructor(color, desk) {
-        super(color, desk)
+    constructor(color, desk, cell) {
+        super(color, desk, cell)
     }
 }
 
 class Queen extends BaseFigure {
-    constructor(color, desk) {
-        super(color, desk)
+    constructor(color, desk, cell) {
+        super(color, desk, cell)
     }
 }
 
 class King extends BaseFigure {
-    constructor(color, desk) {
-        super(color, desk)
+    constructor(color, desk, cell) {
+        super(color, desk, cell)
     }
 }
 
@@ -51,45 +83,45 @@ class Desk {
 
         Desk.x.forEach(function(x) {
             return Desk.y.forEach(function(y) {
-                return coords[`${x}${y}`] = {}
+                return coords[`${x}${y}`] = null
             })
         })
 
         // генерируем фигуры на доске
         // белые
-        coords['A1'] = new Rook('white', this),
-        coords['B1'] = new Horse('white', this),
-        coords['C1'] = new Bishop('white', this),
-        coords['D1'] = new Queen('white', this),
-        coords['E1'] = new King('white', this),
-        coords['F1'] = new Bishop('white', this),
-        coords['G1'] = new Horse('white', this),
-        coords['H1'] = new Rook('white', this),
-        coords['A2'] = new Pawn('white', this),
-        coords['B2'] = new Pawn('white', this),
-        coords['C2'] = new Pawn('white', this),
-        coords['D2'] = new Pawn('white', this),
-        coords['E2'] = new Pawn('white', this),
-        coords['F2'] = new Pawn('white', this),
-        coords['G2'] = new Pawn('white', this),
-        coords['H2'] = new Pawn('white', this),
+        coords['A1'] = new Rook('white', this, 'A1'),
+        coords['B1'] = new Horse('white', this, 'B1'),
+        coords['C1'] = new Bishop('white', this, 'C1'),
+        coords['D1'] = new Queen('white', this, 'D1'),
+        coords['E1'] = new King('white', this, 'E1'),
+        coords['F1'] = new Bishop('white', this, 'F1'),
+        coords['G1'] = new Horse('white', this, 'G1'),
+        coords['H1'] = new Rook('white', this, 'H1'),
+        coords['A2'] = new Pawn('white', this, 'A2'),
+        coords['B2'] = new Pawn('white', this, 'B2'),
+        coords['C2'] = new Pawn('white', this, 'C2'),
+        coords['D2'] = new Pawn('white', this, 'D2'),
+        coords['E2'] = new Pawn('white', this, 'E2'),
+        coords['F2'] = new Pawn('white', this, 'F2'),
+        coords['G2'] = new Pawn('white', this, 'G2'),
+        coords['H2'] = new Pawn('white', this, 'H2'),
         // черные
-        coords['A7'] = new Pawn('black', this),
-        coords['B7'] = new Pawn('black', this),
-        coords['C7'] = new Pawn('black', this),
-        coords['D7'] = new Pawn('black', this),
-        coords['E7'] = new Pawn('black', this),
-        coords['F7'] = new Pawn('black', this),
-        coords['G7'] = new Pawn('black', this),
-        coords['H7'] = new Pawn('black', this),
-        coords['A8'] = new Rook('black', this),
-        coords['B8'] = new Horse('black', this),
-        coords['C8'] = new Bishop('black', this),
-        coords['D8'] = new Queen('black', this),
-        coords['E8'] = new King('black', this),
-        coords['F8'] = new Bishop('black', this),
-        coords['G8'] = new Horse('black', this),
-        coords['H8'] = new Rook('black', this)
+        coords['A7'] = new Pawn('black', this, 'A7'),
+        coords['B7'] = new Pawn('black', this, 'B7'),
+        coords['C7'] = new Pawn('black', this, 'C7'),
+        coords['D7'] = new Pawn('black', this, 'D7'),
+        coords['E7'] = new Pawn('black', this, 'E7'),
+        coords['F7'] = new Pawn('black', this, 'F7'),
+        coords['G7'] = new Pawn('black', this, 'G7'),
+        coords['H7'] = new Pawn('black', this, 'H7'),
+        coords['A8'] = new Rook('black', this, 'A8'),
+        coords['B8'] = new Horse('black', this, 'B8'),
+        coords['C8'] = new Bishop('black', this, 'C8'),
+        coords['D8'] = new Queen('black', this, 'D8'),
+        coords['E8'] = new King('black', this, 'E8'),
+        coords['F8'] = new Bishop('black', this, 'F8'),
+        coords['G8'] = new Horse('black', this, 'G8'),
+        coords['H8'] = new Rook('black', this, 'H8')
 
         this.#coords = coords
     }
@@ -124,4 +156,4 @@ class Game {
     get state() { return this.#state }
 }
 
-console.log((new Game).desk.coords)
+console.log((new Game).desk.coords['A2'].moves())
