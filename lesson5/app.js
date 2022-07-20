@@ -1,10 +1,18 @@
 // фигуры
 class BaseFigure {
     constructor(color, desk, cell) {
-        this.color = color
-        this.desk = desk
-        this.cell = cell
+        this.#color = color
+        this.#desk = desk
+        this.#cell = cell
     }
+
+    #color = null
+    #desk = null
+    #cell = null
+
+    get color() { return this.#color }
+    get desk() { return this.#desk }
+    get cell() { return this.#cell }
 
     moves() {
         throw Error('Function `moves` is not implemented')
@@ -14,9 +22,12 @@ class BaseFigure {
 class Pawn extends BaseFigure {
     constructor(color, desk, cell) {
         super(color, desk, cell)
-        this.canEvolve = false
-        this.doubleMove = true
     }
+
+    #doubleMove = true
+    #canEvolve = false
+
+    get canEvolve() { return this.#canEvolve } 
 
     moves() {
         return 'Ходы для пешки'
@@ -144,3 +155,7 @@ class Game {
     get turnCount() { return this.#turnCount }
     get state() { return this.#state }
 }
+
+let game = new Game()
+let desk = game.desk
+console.log(desk.coords['A1'].color)
