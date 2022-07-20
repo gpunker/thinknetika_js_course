@@ -1,18 +1,18 @@
 // фигуры
 class BaseFigure {
     constructor(color, desk, cell) {
-        this.#color = color
-        this.#desk = desk
-        this.#cell = cell
+        this._color = color
+        this._desk = desk
+        this._cell = cell
     }
 
-    #color = null
-    #desk = null
-    #cell = null
+    _color = null
+    _desk = null
+    _cell = null
 
-    get color() { return this.#color }
-    get desk() { return this.#desk }
-    get cell() { return this.#cell }
+    get color() { return this._color }
+    get desk() { return this._desk }
+    get cell() { return this._cell }
 
     moves() {
         throw Error('Function `moves` is not implemented')
@@ -24,10 +24,10 @@ class Pawn extends BaseFigure {
         super(color, desk, cell)
     }
 
-    #doubleMove = true
-    #canEvolve = false
+    _doubleMove = true
+    _canEvolve = false
 
-    get canEvolve() { return this.#canEvolve } 
+    get canEvolve() { return this._canEvolve } 
 
     moves() {
         return 'Ходы для пешки'
@@ -124,36 +124,36 @@ class Desk {
         coords['G8'] = new Horse('black', this, 'G8'),
         coords['H8'] = new Rook('black', this, 'H8')
 
-        this.#coords = coords
+        this._coords = coords
     }
 
-    #coords = {}
+    _coords = {}
 
     static get y() { return [1, 2, 3, 4, 5, 6, 7, 8] }
     static get x() { return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] }
 
-    get coords() { return this.#coords }
+    get coords() { return this._coords }
 }
 
 // игра
 class Game {
     constructor() {}
     
-    #state = Game.states[0]
-    #desk = new Desk()
-    #turn = 'white'
-    #history = []
-    #killedFigures = []
-    #turnCount = 0
+    _state = Game.states[0]
+    _desk = new Desk()
+    _turn = 'white'
+    _history = []
+    _killedFigures = []
+    _turnCount = 0
 
     static get states() { return ['continue', 'white wins', 'black wins'] }
 
-    get desk() { return this.#desk }
-    get turn() { return this.#turn }
-    get history() { return this.#history }
-    get killedFigures() { return this.#killedFigures }
-    get turnCount() { return this.#turnCount }
-    get state() { return this.#state }
+    get desk() { return this._desk }
+    get turn() { return this._turn }
+    get history() { return this._history }
+    get killedFigures() { return this._killedFigures }
+    get turnCount() { return this._turnCount }
+    get state() { return this._state }
 }
 
 let game = new Game()
