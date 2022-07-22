@@ -1,3 +1,4 @@
+// Создать функцию, которая будет принимать HTML элемент и объект.
 const data = [
     {
         title: 'Half-Life',
@@ -36,3 +37,4 @@ const list = document.querySelectorAll('#item-list > .item')
 for(let i = 0; i < list.length; i++) {
     fillItem(list[i], data[i])
 }
+///////////////////////////////////////////////////////////////////
