@@ -1,6 +1,6 @@
 // Реализовать функцию для отображения на экране вложенных массивов.
 function fill(rootElement, content) {
-    if (content instanceof Array) {
+    if (Array.isArray(content)) {
         const list = document.createElement('ul')
 
         content.forEach(element => {
