@@ -36,3 +36,9 @@ input {
     height: 45px;
     font-size: 18px;
 }
+
+.result {
+    display: inline-block;
+    width: 100%;
+    text-align: end;
+}
