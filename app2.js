@@ -5,8 +5,8 @@ const numberPanel = document.querySelector('.numbers')
 const actionPanel = document.querySelector('.actions')
 
 let inputedValue = null
-let lastAction = null
-let lastResultValue = null
+let currentOperand = null
+let resultValue = 0
 
 function fillInputByClick(event) {
     if (event.target.className !== 'numbers') {
@@ -27,32 +27,79 @@ function removeChar(event) {
     }
 }
 
+function calcResultByEnter(event) {
+    if (event.key === 'Enter') {
+        equalTrigger()
+    }
+}
+
+function performAction() {
+    switch(currentOperand) {
+        case '+':
+            resultValue = resultValue + inputedValue
+            break
+        case '-':
+            resultValue = resultValue - inputedValue
+            break
+        case '*':
+            resultValue = resultValue * inputedValue
+            break
+        case '/':
+            resultValue = resultValue / inputedValue
+            break
+    }
+}
+
 function pressAction(event) {
-    if (event.target.className === 'actions') {
+    const operandButton = event.target
+
+    if (operandButton.className === 'actions') {
         return
     }
     
-    switch(event.target.textContent) {
-        case '+':
-        case '-':
-        case '*':
-        case '/':
-            lastResultValue = input.value
-            lastAction = event.target.textContent
-            input.value = ''
+    switch(operandButton.textContent) {
+        case 'C':
+            clear()
             break
         case '=':
-            resultBlock.textContent = eval(`${lastResultValue}${lastAction}${parseInt(input.value)}`)
-            lastAction = null
-            input.value = ''
+            equalTrigger()
             break
         default:
+            if (currentOperand === null) {
+                resultValue = parseInt(input.value)
+                currentOperand = operandButton.textContent
+            } else {
+                inputedValue = parseInt(input.value)
+                performAction()
+                currentOperand = operandButton.textContent
+            }
+            resultBlock.textContent = resultValue
             break
     }
+    input.value = ''
+}
+
+function equalTrigger() {
+    inputedValue = parseInt(input.value)
+    performAction()
+    clear()
+}
+
+function clearVariables() {
+    inputedValue = null
+    currentOperand = null
+    resultValue = 0
+}
+
+function clear() {
+    resultBlock.textContent = resultValue
+    input.value = ''
+    clearVariables()
 }
 
 numberPanel.addEventListener('click', fillInputByClick)
 document.addEventListener('keypress', fillInputByKeyboard)
 document.addEventListener('keydown', removeChar)
+document.addEventListener('keydown', calcResultByEnter)
 
 actionPanel.addEventListener('click', pressAction)
