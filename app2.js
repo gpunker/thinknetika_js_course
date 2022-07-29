@@ -1,4 +1,4 @@
-const input = document.querySelector('input[type=text]')
+const input = document.querySelector('#number-input')
 const resultBlock = document.querySelector('.result')
 
 const numberPanel = document.querySelector('.numbers')

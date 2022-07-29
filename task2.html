@@ -8,29 +8,42 @@
         <h2>Реализовать калькулятор</h2>
 
         <div class="container">
-            <input type="text" />
-            <span class="result">0</span>
-            <div class="buttons-wrapper">
-                <div class="numbers">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                    <div>7</div>
-                    <div>8</div>
-                    <div>9</div>
-                    <div>0</div>
+            <div class="calculator-wrapper">
+                <input id="number-input" type="text" />
+                <span class="result">0</span>
+                <div class="buttons-wrapper">
+                    <div class="numbers">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>0</div>
+                    </div>
+                    <div class="actions">
+                        <div>+</div>
+                        <div>-</div>
+                        <div>*</div>
+                        <div>/</div>
+                        <div>=</div>
+                        <div>C</div>
+                    </div>
                 </div>
-                <div class="actions">
-                    <div>+</div>
-                    <div>-</div>
-                    <div>*</div>
-                    <div>/</div>
-                    <div>=</div>
-                    <div>C</div>
-                </div>
+            </div>
+
+            <div class="command-editor-wrapper">
+                <strong>Добваление команды</strong>
+                <form id="command-editor-form">
+                    <label>Название</label>
+                    <input name="command-name" type="text" required />
+                    <label>Операция(на JS)</label>
+                    <input name="command-body" type="text" required />
+                    <button type="submit">Добавить</button>
+                </form>
             </div>
         </div>
         
