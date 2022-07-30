@@ -3,10 +3,12 @@ const resultBlock = document.querySelector('.result')
 
 const numberPanel = document.querySelector('.numbers')
 const actionPanel = document.querySelector('.actions')
+const addOperationForm = document.querySelector('#command-editor-form')
 
 let inputedValue = null
 let currentOperand = null
 let resultValue = 0
+let customOperations = {}
 
 function fillInputByClick(event) {
     if (event.target.className !== 'numbers') {
@@ -47,6 +49,8 @@ function performAction() {
         case '/':
             resultValue = resultValue / inputedValue
             break
+        default:
+            resultValue = customOperations[currentOperand](resultValue, inputedValue)
     }
 }
 
@@ -97,9 +101,35 @@ function clear() {
     clearVariables()
 }
 
+function addCustomOperation(event) {
+    event.preventDefault()
+    let form = event.target
+
+    let nameInput = form.querySelector('input[name=command-name]')
+    let argumentsInput = form.querySelector('input[name=command-arguments]')
+    let operationInput = form.querySelector('textarea[name=command-body]')
+
+    if (customOperations[nameInput.value] === undefined) {
+        let arguments = argumentsInput.value.split([',', ', ', ' , '])
+        let fn = Function(arguments, operationInput.value)
+        let newOperation = document.createElement('div')
+
+        customOperations[nameInput.value] = fn
+        newOperation.textContent = nameInput.value
+        actionPanel.append(newOperation)
+    } else {
+        alert('Такая операция уже существует')
+    }
+
+    nameInput.value = ''
+    argumentsInput.value = ''
+    operationInput.value = ''
+}
+
 numberPanel.addEventListener('click', fillInputByClick)
 document.addEventListener('keypress', fillInputByKeyboard)
 document.addEventListener('keydown', removeChar)
 document.addEventListener('keydown', calcResultByEnter)
 
 actionPanel.addEventListener('click', pressAction)
+addOperationForm.addEventListener('submit', addCustomOperation)

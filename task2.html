@@ -40,8 +40,10 @@
                 <form id="command-editor-form">
                     <label>Название</label>
                     <input name="command-name" type="text" required />
+                    <label>Названия аргументов(через запятую, только 2 аргумента)</label>
+                    <input type="text" name="command-arguments" required />
                     <label>Операция(на JS)</label>
-                    <input name="command-body" type="text" required />
+                    <textarea name="command-body" type="text" required rows="10" cols="40"> </textarea>
                     <button type="submit">Добавить</button>
                 </form>
             </div>
