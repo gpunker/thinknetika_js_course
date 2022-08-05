@@ -1,135 +1,159 @@
-const input = document.querySelector('#number-input')
-const resultBlock = document.querySelector('.result')
-
-const numberPanel = document.querySelector('.numbers')
-const actionPanel = document.querySelector('.actions')
-const addOperationForm = document.querySelector('#command-editor-form')
-
-let inputedValue = null
-let currentOperand = null
-let resultValue = 0
-let customOperations = {}
-
-function fillInputByClick(event) {
-    if (event.target.className !== 'numbers') {
-        input.value += event.target.textContent
+class CalculatorView {
+    constructor() {
+        this._numberPanel.addEventListener('click', (e) => this.inputHandler(parseInt(e.target.textContent)))
+        this._actionPanel.addEventListener('click', (e) => this.handleAction(e.target.textContent))
+        this._addOperationForm.addEventListener('submit', (e) => this.addOperation(e))
+        
+        document.addEventListener('keypress', (e) => this.inputHandler(e.key))
+        document.addEventListener('keydown', (e) => this.keydownHandler(e.key))
     }
-}
 
-function fillInputByKeyboard(event) {
-    if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(parseInt(event.key))) {
-        input.value += event.key
+    _calculator = new CalculatorEngine()
+    _input = document.querySelector('#number-input')
+    _numberPanel = document.querySelector('.numbers')
+    _resultBlock = document.querySelector('.result')
+    _actionPanel = document.querySelector('.actions')
+    _addOperationForm = document.querySelector('#command-editor-form')
+
+    inputHandler(key) {
+        switch(key) {
+            case 'C':
+            case 'c':
+                this.clear()
+                break
+            default: 
+                if ([1,2,3,4,5,6,7,8,9,0].includes(parseInt(key)) && this.isBodyFocused()) {
+                    this._input.value += key
+                }
+        }
     }
-}
 
-function removeChar(event) {
-    if (event.key === 'Backspace') {
-        let inputValue = input.value
-        input.value = inputValue.slice(0, inputValue.length - 1)
+    keydownHandler(key) {
+        switch(key) {
+            case 'Backspace':
+                if (this.isBodyFocused()) {
+                    this._input.value = this._input.value.slice(0, this._input.value.length - 1)
+                }
+                break
+            case 'Enter':
+                this.handleAction('=')
+        }
     }
-}
 
-function calcResultByEnter(event) {
-    if (event.key === 'Enter') {
-        equalTrigger()
-    }
-}
-
-function performAction() {
-    switch(currentOperand) {
-        case '+':
-            resultValue = resultValue + inputedValue
-            break
-        case '-':
-            resultValue = resultValue - inputedValue
-            break
-        case '*':
-            resultValue = resultValue * inputedValue
-            break
-        case '/':
-            resultValue = resultValue / inputedValue
-            break
-        default:
-            resultValue = customOperations[currentOperand](resultValue, inputedValue)
-    }
-}
-
-function pressAction(event) {
-    const operandButton = event.target
-
-    if (operandButton.className === 'actions') {
-        return
+    isBodyFocused() {
+        return document.activeElement.tagName === 'BODY'
     }
     
-    switch(operandButton.textContent) {
-        case 'C':
-            clear()
-            break
-        case '=':
-            equalTrigger()
-            break
-        default:
-            if (currentOperand === null) {
-                resultValue = parseInt(input.value)
-                currentOperand = operandButton.textContent
+    handleAction(key) {
+        if (['c', 'C'].includes(key)) {
+            this.inputHandler(key)
+            return
+        }
+
+        let result = this._calculator.handleInput(parseInt(this._input.value), key)
+        this._input.value = ''
+        if (result !== undefined) this._resultBlock.textContent = result
+    }
+
+    clear() {
+        this._calculator.clear()
+        this._resultBlock.textContent = this._calculator.resultValue
+        this._input.value = ''
+    }
+
+    addOperation(event) {
+        event.preventDefault()
+        let form = event.target
+
+        let nameInput = form.querySelector('input[name=command-name]')
+        let argumentsInput = form.querySelector('input[name=command-arguments]')
+        let operationInput = form.querySelector('textarea[name=command-body]')
+
+        let args = argumentsInput.value.split([',', ', ', ' , '])
+        this._calculator.addOperation(nameInput.value, args[0], args[1], operationInput.value)
+        
+        let newOperationButton = document.createElement('div')
+        newOperationButton.textContent = nameInput.value
+        this._actionPanel.append(newOperationButton)
+
+        nameInput.value = ''
+        argumentsInput.value = ''
+        operationInput.value = ''
+    }
+}
+
+class CalculatorEngine {
+    constructor() {}
+
+    _inputedValue = null
+    _currentOperand = null
+    _resultValue = 0
+
+    _operations = {
+        '+': function(a, b) {
+            return a + b
+        },
+        '-': function(a, b) {
+            return a - b
+        },
+        '*': function(a, b) {
+            return a * b
+        },
+        '/': function(a, b) {
+            return a / b
+        }
+    }
+
+    get operations() {
+        return this._operations
+    }
+
+    get resultValue() {
+        return this._resultValue
+    }
+
+    handleInput(value, operand) {
+        if (this._currentOperand === null) {
+            this._resultValue = value
+            this._currentOperand = operand
+        } else {
+            this._inputedValue = value
+            let result = this.perform()
+
+            if (operand === '=') {
+                this._currentOperand = null
+                this._inputedValue = null
             } else {
-                inputedValue = parseInt(input.value)
-                performAction()
-                currentOperand = operandButton.textContent
+                this._currentOperand = operand
             }
-            resultBlock.textContent = resultValue
-            break
-    }
-    input.value = ''
-}
-
-function equalTrigger() {
-    inputedValue = parseInt(input.value)
-    performAction()
-    clear()
-}
-
-function clearVariables() {
-    inputedValue = null
-    currentOperand = null
-    resultValue = 0
-}
-
-function clear() {
-    resultBlock.textContent = resultValue
-    input.value = ''
-    clearVariables()
-}
-
-function addCustomOperation(event) {
-    event.preventDefault()
-    let form = event.target
-
-    let nameInput = form.querySelector('input[name=command-name]')
-    let argumentsInput = form.querySelector('input[name=command-arguments]')
-    let operationInput = form.querySelector('textarea[name=command-body]')
-
-    if (customOperations[nameInput.value] === undefined) {
-        let arguments = argumentsInput.value.split([',', ', ', ' , '])
-        let fn = Function(arguments, operationInput.value)
-        let newOperation = document.createElement('div')
-
-        customOperations[nameInput.value] = fn
-        newOperation.textContent = nameInput.value
-        actionPanel.append(newOperation)
-    } else {
-        alert('Такая операция уже существует')
+            
+            return result
+        }
     }
 
-    nameInput.value = ''
-    argumentsInput.value = ''
-    operationInput.value = ''
+    perform() {
+        this._resultValue = this._operations[this._currentOperand](this._resultValue, this._inputedValue)
+        return this._resultValue
+    }
+
+    addOperation(name, argA, argB, fnBody) {
+        if (this._operations[name] === undefined) {
+            let func = Function(argA, argB, fnBody)
+            this._operations[name] = func
+        } else {
+            alert('Такая операция уже существует')
+        }
+    }
+
+    clear() {
+        this._inputedValue = null
+        this._currentOperand = null
+        this._resultValue = 0
+    }
 }
 
-numberPanel.addEventListener('click', fillInputByClick)
-document.addEventListener('keypress', fillInputByKeyboard)
-document.addEventListener('keydown', removeChar)
-document.addEventListener('keydown', calcResultByEnter)
+function main() {
+    new CalculatorView()
+}
 
-actionPanel.addEventListener('click', pressAction)
-addOperationForm.addEventListener('submit', addCustomOperation)
+main()
