@@ -1,14 +1,14 @@
 class CustomPromise {
     constructor(executor) {
-        executor.bind(this, this.resolve, this.reject)
-        setTimeout(executor, 0)
+        setTimeout(() => executor(this.resolve, this.reject), 0)
     }
 
     _state = 'pending'
-    _result = undefined
+    // _result = undefined
+    // _error = undefined
 
     resolve(result) {
-        if (this._isPending()) {
+        if (this.#isPending()) {
             this._state = 'fulfilled'
             this._result = result
 
@@ -17,12 +17,24 @@ class CustomPromise {
     }
 
     reject(error) {
-        if (this._isPending()) {
+        if (this.#isPending()) {
             this._state = 'rejected'
 
             return this
         }
     }
 
-    _isPending = () => this._state === 'pending'
+    #isPending = () => this._state === 'pending'
+
+    then(result) {
+
+    }
+
+    catch(error) {
+
+    }
+
+    finally() {
+
+    }
 }
