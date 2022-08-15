@@ -100,7 +100,7 @@ class CustomPromise {
     }
 
     catch(reason) {
-        then(null, reason)
+        this.then(null, reason)
     }
 
     finally(onfinally) {
