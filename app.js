@@ -86,7 +86,6 @@ class View {
         data.then((data) => {
             data.data.forEach(element => {
                 let gif = this._createImg(element.images.preview_gif.url)
-                console.log(gif)
                 this._resultGrid.append(gif)
             });
         })
