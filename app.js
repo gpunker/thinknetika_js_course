@@ -1,16 +1,38 @@
 class ApiHandler {
     constructor() {}
+
+    async makeRequest(method, uri, options={}) {
+        options['method'] = method.toUpperCase()
+        options['mode'] = 'cors'
+
+        const url = new URL(uri)
+
+        if (options.searchParams) {
+            for (let prop in options.searchParams) {
+                url.searchParams.append(prop, options.searchParams[prop])
+            }
+        }
+
+        const response = await fetch(url, options)
+        return await response.json()
+    }
 }
 
 class GiphyApi extends ApiHandler {
     _apiKey = 'NfyuJ4y4jtP4xQQHwclyg13iSv7rV906'
+    _gifsUrl = 'https://api.giphy.com/v1/gifs/search'
 
     constructor() {
         super()
     }
 
-    getGifs() {
-        let url = 'https://api.giphy.com/v1/gifs/trending'
+    getGifs(query) {
+        return this.makeRequest('get', this._gifsUrl, {
+            searchParams: {
+                api_key: this._apiKey,
+                q: query
+            }
+        })
     }
 }
 
@@ -22,37 +44,51 @@ class View {
     _timerId = null
 
     constructor() {
-        this._searchInput.addEventListener('input', (e) => this.search(e))
+        this._searchInput.addEventListener('input', (e) => this._search(e))
     }
 
-    search(event) {
+    _search(event) {
         event.preventDefault()
+        
+        if (event.target.value === '') return
 
         if (this._timerId) {
             clearTimeout(this._timerId)
+            this._timerId = null
         }
 
         this._timerId = setTimeout(() => {
-            this.getGifs(event.target.value)
-        }, 500)
+            this._getGifs(event.target.value)
+        }, 1000)
     }
 
-    getGifs(searchedQuery) {
+    _getGifs(searchedQuery) {
         this._clear()
-
         const data = this._api.getGifs(searchedQuery)
-
         this._drawGifs(data)
     }
 
     _clear() {
-        for(let i = 0; i < this._resultGrid.children.length; i++) {
-            this._resultGrid.children[i].remove()
+        let childCount = this._resultGrid.children.length
+        for(let i = 0; i < childCount; i++) {
+            this._resultGrid.children[0].remove()
         }
     }
 
     _drawGifs(data) {
-        console.log('drawed')
+        data.then((data) => {
+            data.data.forEach(element => {
+                let gif = this._createImg(element.images.preview_gif.url)
+                console.log(gif)
+                this._resultGrid.append(gif)
+            });
+        })
+    }
+
+    _createImg(link) {
+        let img = document.createElement('img')
+        img.src = link
+        return img
     }
 }
 
