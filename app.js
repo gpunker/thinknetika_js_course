@@ -38,7 +38,7 @@ class GiphyApi extends ApiHandler {
 
 class View {
     _api = new GiphyApi()
-    _cache = []
+    _cache = {}
     _searchInput = document.querySelector('#query')
     _resultGrid = document.querySelector('#results')
     _timerId = null
@@ -64,7 +64,14 @@ class View {
 
     _getGifs(searchedQuery) {
         this._clear()
+
+        if (this._cache[searchedQuery]) {
+            this._drawGifs(this._cache[searchedQuery])
+            return
+        }
+
         const data = this._api.getGifs(searchedQuery)
+        this._cache[searchedQuery] = data
         this._drawGifs(data)
     }
 
