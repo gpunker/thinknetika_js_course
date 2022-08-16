@@ -1,0 +1,44 @@
+.container {
+    display: grid;
+    grid-auto-rows: minmax(150px, auto);
+    margin: 0 auto;
+    width: 1024px;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#query {
+    width: 600px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+
+#btn-submit {
+    width: 600px;
+    height: 40px;
+    font-size: 22px;
+    color: white;
+    background: orange;
+    border: none;
+}
+
+.title {
+    text-align: center;
+}
+
+.result-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+}
