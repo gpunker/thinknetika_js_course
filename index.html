@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta content="dark light" name="color-scheme" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.0.0/mocha.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.0.0/mocha.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.6/chai.min.js"></script>
+
+        <script>
+            mocha.setup('bdd');
+        </script>
+        <script>
+            var assert = chai.assert
+        </script>
+    </head>
+    <body>
+        <script src="app.js"></script>
+        <script src="app.test.js"></script>
+
+        <div id="mocha"></div>
+
+        <script>
+            mocha.run();
+        </script>
+    </body>
+</html>
