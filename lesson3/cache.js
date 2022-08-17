@@ -51,7 +51,7 @@
 
 const calculate = cache()
 
-console.log(calculate(2,2))
-console.log(calculate(2,2))
-console.log(calculate(3,2))
-console.log(calculate(2,2))
+// console.log(calculate(2,2))
+// console.log(calculate(2,2))
+// console.log(calculate(3,2))
+// console.log(calculate(2,2))
