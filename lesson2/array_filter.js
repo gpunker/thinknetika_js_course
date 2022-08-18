@@ -23,14 +23,14 @@ function filterByLength2(array, ...lengths) {
     return filtered
 }
 
-const fruits = ['orange', 'apple', 'banana', '']
-console.log('Первая реализация:')
-console.log(filterByLength1(fruits, 0, 5))
-console.log('Вторая реализация:')
-console.log(filterByLength2(fruits, 0, 5))
+// const fruits = ['orange', 'apple', 'banana', '']
+// console.log('Первая реализация:')
+// console.log(filterByLength1(fruits, 0, 5))
+// console.log('Вторая реализация:')
+// console.log(filterByLength2(fruits, 0, 5))
 
-const cars = ['Honda', 'Toyota', 'BMW', 'Lada', 'Opel']
-console.log('Первая реализация:')
-console.log(filterByLength1(cars, 4, 3))
-console.log('Вторая реализация:')
-console.log(filterByLength2(cars, 4, 3))
+// const cars = ['Honda', 'Toyota', 'BMW', 'Lada', 'Opel']
+// console.log('Первая реализация:')
+// console.log(filterByLength1(cars, 4, 3))
+// console.log('Вторая реализация:')
+// console.log(filterByLength2(cars, 4, 3))

@@ -22,17 +22,17 @@
 const MoneyBox = function() {
     let amount = 0
 
-    this.addCoin = () => amount++
+    this.addCoin = () => { amount++; return }
     this.getAmount = () => amount
 }
 
-let box = new MoneyBox()
-console.log(box)
-console.log(box.getAmount())
-box.addCoin()
-box.addCoin()
-console.log(box.getAmount())
+// let box = new MoneyBox()
+// console.log(box)
+// console.log(box.getAmount())
+// box.addCoin()
+// box.addCoin()
+// console.log(box.getAmount())
 
-// пробуем напрямую изменить число и получим только то что добавили
-box.amount = 10
-console.log(box.getAmount())
+// // пробуем напрямую изменить число и получим только то что добавили
+// box.amount = 10
+// console.log(box.getAmount())

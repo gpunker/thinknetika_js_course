@@ -57,13 +57,13 @@ function Calc() {
     }
   }
   
-  const calculator = new Calc()
-  console.log(calculator)
-  console.log(calculator.operation('1 + 2'))
-  console.log(calculator.history())
-  calculator.addOperation('*', (a, b) => a * b)
-  console.log(calculator.operation('2*2'))
-  console.log(calculator.operation('*22'))
-  console.log(calculator.history())
-  calculator.clearHistory()
-  console.log(calculator.history())
+  // const calculator = new Calc()
+  // console.log(calculator)
+  // console.log(calculator.operation('1 + 2'))
+  // console.log(calculator.history())
+  // calculator.addOperation('*', (a, b) => a * b)
+  // console.log(calculator.operation('2*2'))
+  // console.log(calculator.operation('*22'))
+  // console.log(calculator.history())
+  // calculator.clearHistory()
+  // console.log(calculator.history())

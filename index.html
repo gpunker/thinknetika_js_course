@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta content="dark light" name="color-scheme" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.0.0/mocha.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.0.0/mocha.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.6/chai.min.js"></script>
+
+        <script>
+            mocha.setup('bdd');
+        </script>
+        <script>
+            var assert = chai.assert
+        </script>
+    </head>
+    <body>
+        <!-- Написать функцию, которая принимает массив чисел и возвращает сумму и количество положительных элементов массива -->
+        <script src="app.js"></script>
+        <script src="app.test.js"></script>
+        <!--------------------------------------->
+
+        <!-- Реализовать функцию для фильтрации массива чисел по убыванию -->
+        <script src="lesson2/array_sort_desc.js"></script>
+        <script src="array_sort_desc.test.js"></script>
+        <!--------------------------------------->
+
+        <!-- Реализовать функцию для фильтрации массива по длине слов -->
+        <script src="lesson2/array_filter.js"></script>
+        <script src="array_filter.test.js"></script>
+        <!--------------------------------------->
+
+        <!-- Кэширование -->
+        <script src="lesson3/cache.js"></script>
+        <script src="cache.test.js"></script>
+        <!--------------------------------------->
+
+        <!-- Реализуйте функцию MoneyBox -->
+        <script src="lesson3/money_box.js"></script>
+        <script src="money_box.test.js"></script>
+        <!--------------------------------------->
+
+        <!-- Калькулятор -->
+        <script src="lesson3/calculator.js"></script>
+        <script src="calculator.test.js"></script>
+        <!--------------------------------------->
+
+        <!-- Калькулятор -->
+        <script src="lesson3/ticket_window.js"></script>
+        <script src="ticket_window.test.js"></script>
+        <!--------------------------------------->
+
+        <div id="mocha"></div>
+
+        <script>
+            mocha.run();
+        </script>
+    </body>
+</html>

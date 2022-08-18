@@ -23,8 +23,8 @@ function sortDesc2(array) {
     }
 }
 
-const numbers = [-20, -10, 0, 10, 20, 30]
-console.log('Первая реализация:')
-console.log(sortDesc1(numbers))
-console.log('Вторая реализация:')
-console.log(sortDesc2(numbers))
+// const numbers = [-20, -10, 0, 10, 20, 30]
+// console.log('Первая реализация:')
+// console.log(sortDesc1(numbers))
+// console.log('Вторая реализация:')
+// console.log(sortDesc2(numbers))
