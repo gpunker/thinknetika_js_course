@@ -23,28 +23,22 @@ function TicketWindow() {
 
     return {
         createEvent: (eventName, price) => {
-            if (isEventExists(eventName)) {
-                console.log('Мероприятие уже существует!')
-            } else {
-                events[eventName] = { price: price, sum: 0 }
-            }
+            if (isEventExists(eventName))  throw Error('Мероприятие уже существует!')
 
-            console.log(events)
-            console.log(buyedTickets)
+            events[eventName] = { price: price, sum: 0 }
         },
+
+        getEvents: () => {
+            return events
+        },
+
         buyTicket: (eventName) => {
-            if (!isEventExists(eventName)) {
-                console.log('Мероприятия не существует!')
-                return
-            }
+            if (!isEventExists(eventName)) throw Error('Мероприятия не существует!')
 
             let ticketId = generateTicketId()
 
             events[eventName].sum += events[eventName].price
             buyedTickets[ticketId] = { eventName: eventName }
-
-            console.log(events)
-            console.log(buyedTickets)
             
             return ticketId
         },
@@ -53,24 +47,21 @@ function TicketWindow() {
 
             events[eventName].sum -= events[eventName].price
             delete buyedTickets[ticketId]
-
-            console.log(events)
-            console.log(buyedTickets)
         }
     }
 }
 
-const ticketWindow = new TicketWindow()
-console.log('Создали мероприятие')
-ticketWindow.createEvent('Metallica', 300)
-console.log('Покупка первого билета')
-const firstTicket = ticketWindow.buyTicket('Metallica')
-console.log(firstTicket)
-console.log('Покупка билета на несуществующий концерт')
-ticketWindow.buyTicket('Slayer')
-console.log('Покупка второго концерт')
-const secondTicket = ticketWindow.buyTicket('Metallica')
-console.log(secondTicket)
-console.log('Возврат первого билета')
-ticketWindow.returnTicket(firstTicket)
+// const ticketWindow = new TicketWindow()
+// console.log('Создали мероприятие')
+// ticketWindow.createEvent('Metallica', 300)
+// console.log('Покупка первого билета')
+// const firstTicket = ticketWindow.buyTicket('Metallica')
+// console.log(firstTicket)
+// console.log('Покупка билета на несуществующий концерт')
+// ticketWindow.buyTicket('Slayer')
+// console.log('Покупка второго концерт')
+// const secondTicket = ticketWindow.buyTicket('Metallica')
+// console.log(secondTicket)
+// console.log('Возврат первого билета')
+// ticketWindow.returnTicket(firstTicket)
 
