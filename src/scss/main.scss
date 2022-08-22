@@ -1,6 +1,12 @@
+.game-divider {
+    display: flex;
+    justify-content: space-around;
+}
+
 .desk-wrapper {
+    display: inline-block;
     position: relative;
-    padding: 70px;
+    padding: 0 0 70px 70px;
 }
 
 .desk-coords {
@@ -38,4 +44,52 @@
 
 .black {
     background: rosybrown;
+}
+
+.input-wrapper {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+
+    label {
+        font-size: 18px;
+    }
+
+    input {
+        padding: 10px;
+        line-height: 20px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px;
+        size: 18px;
+    }
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats {
+    display: flex;
+
+    .killed-figures-wrapper {
+        margin-right: 30px;
+    }
+
+    .history {
+        margin-right: 30px;
+    }
+}
+
+.killed-figures {
+    display: flex;
+    justify-content: space-between;
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
 }
