@@ -1,0 +1,55 @@
+.figure {
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    background-size: 480px;
+    background-image: url($pieces);
+}
+
+.pawn.black {
+    background-position: top 70px left 74px;
+}
+
+.pawn.white {
+    background-position: top 151px left 74px;
+}
+
+.horse.black {
+    background-position: top 72px left 233px;
+}
+
+.horse.white {
+    background-position: top 152px left 233px;
+}
+
+.bishop.black {
+    background-position: top 235px left 314px;
+}
+
+.bishop.white {
+    background-position: top 315px left 314px;
+}
+
+.rook.black {
+    background-position: top 231px left 153px;
+}
+
+.rook.white {
+    background-position: top 311px left 153px;
+}
+
+.queen.black {
+    background-position: top 233px left -87px;
+}
+
+.queen.white {
+    background-position: top 314px left -87px;
+}
+
+.king.black {
+    background-position: top 393px left -7px;
+}
+
+.king.white {
+    background-position: top 313px left -7px;
+}

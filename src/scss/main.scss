@@ -1,3 +1,6 @@
+@import "variables";
+@import "figures";
+
 .game-divider {
     display: flex;
     justify-content: space-around;
@@ -40,10 +43,10 @@
     .cell {
         border: 1px solid black;
     }
-}
 
-.black {
-    background: rosybrown;
+    .cell.black {
+        background: rosybrown;
+    }
 }
 
 .input-wrapper {
