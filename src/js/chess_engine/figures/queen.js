@@ -6,6 +6,6 @@ export default class Queen extends Figure {
     }
 
     moves() {
-        return 'Ходы для ферзя'
+        return this.movesX().concat(this.movesY()).concat(this.movesXY())
     }
 }
