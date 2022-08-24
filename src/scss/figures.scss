@@ -1,7 +1,6 @@
 .figure {
-    width: 60px;
-    height: 60px;
-    padding: 10px;
+    width: 70px;
+    height: 70px;
     background-size: 480px;
     background-image: url($pieces);
 }
@@ -52,6 +51,14 @@
 
 .king.white {
     background-position: top 313px left -7px;
+}
+
+.available {
+    border: 3px solid red !important;
+}
+
+.selected {
+    background-color: #0000ff4f;
 }
 
 .killed-figures {
