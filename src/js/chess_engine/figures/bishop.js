@@ -1,3 +1,4 @@
+import Desk from "../desk"
 import Figure from "./figure"
 
 export default class Bishop extends Figure {
@@ -6,6 +7,6 @@ export default class Bishop extends Figure {
     }
 
     moves() {
-        return 'Ходы для слона'
+        return this.movesXY()
     }
 }
