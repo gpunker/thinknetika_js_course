@@ -27,7 +27,6 @@ export default class Pawn extends Figure {
             let coordsIndex = `${newX}${newY}`
 
             if (this.desk.coords[coordsIndex] !== undefined) {
-                console.log(ms[i][0], this.desk.coords[coordsIndex] === null)
                 // в теории сюда можно запихать блок для доп обработки
                 if (ms[i][0] !== 0 && this.desk.coords[coordsIndex] === null) {
                     continue
