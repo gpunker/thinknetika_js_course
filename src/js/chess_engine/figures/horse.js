@@ -1,4 +1,4 @@
-import Figure from "./base"
+import Figure from "./figure"
 
 export default class Horse extends Figure {
     constructor(color, desk, cell) {

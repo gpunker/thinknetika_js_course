@@ -45,7 +45,7 @@ export default class Desk {
 
     _coords = {}
 
-    static get y() { return [1, 2, 3, 4, 5, 6, 7, 8] }
+    static get y() { return ['1', '2', '3', '4', '5', '6', '7', 8] }
     static get x() { return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] }
 
     get coords() { return this._coords }
