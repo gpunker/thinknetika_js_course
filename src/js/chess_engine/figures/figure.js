@@ -1,4 +1,4 @@
-export default class BaseFigure {
+export default class Figure {
     constructor(color, desk, cell) {
         this._color = color
         this._desk = desk

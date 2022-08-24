@@ -1,6 +1,6 @@
-import BaseFigure from "./base"
+import Figure from "./base"
 
-export default class King extends BaseFigure {
+export default class King extends Figure {
     constructor(color, desk, cell) {
         super(color, desk, cell)
     }
