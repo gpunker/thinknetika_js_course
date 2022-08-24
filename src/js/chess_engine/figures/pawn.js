@@ -17,16 +17,23 @@ export default class Pawn extends Figure {
         const ms = [[0,1], [-1, 1], [1,1]]
         if (this._doubleMove) ms.push([0,2])
 
-        let cellX = Desk.x.indexOf(this.cell[0])
-        let cellY = Desk.y.indexOf(this.cell[1])
+        const cellX = Desk.x.indexOf(this.cell[0])
+        const cellY = Desk.y.indexOf(this.cell[1])
+        let newX = null
+        let newY = null
 
         for (let i = 0; i < ms.length; i++) {
-            let newX = Desk.x[cellX + ms[i][0]]
-            let newY = Desk.y[cellY + ms[i][1]]
+            if (this.color === 'white') {
+                newX = Desk.x[cellX + ms[i][0]]
+                newY = Desk.y[cellY + ms[i][1]]
+            } else {
+                newX = Desk.x[cellX - ms[i][0]]
+                newY = Desk.y[cellY - ms[i][1]]
+            }
 
-            let coordsIndex = `${newX}${newY}`
+            const coordsIndex = `${newX}${newY}`
 
-            if (this.desk.coords[coordsIndex] !== undefined) {
+            if (this.desk.coords[coordsIndex] === null) {
                 // в теории сюда можно запихать блок для доп обработки
                 if (ms[i][0] !== 0 && this.desk.coords[coordsIndex] === null) {
                     continue
