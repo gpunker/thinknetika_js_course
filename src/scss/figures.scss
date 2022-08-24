@@ -53,3 +53,64 @@
 .king.white {
     background-position: top 313px left -7px;
 }
+
+.killed-figures {
+    display: flex;
+    justify-content: space-between;
+
+    .figure-killed {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-size: 182px;
+        background-image: url($pieces);
+    }
+
+    .pawn-killed.black {
+        background-position: top 29px left 30px;
+    }
+
+    .pawn-killed.white {
+        background-position: top 59px left 30px;
+    }
+
+    .rook-killed.black {
+        background-position: top 29px left 60px;
+    }
+
+    .rook-killed.white {
+        background-position: top 59px left 60px;
+    }
+
+    .horse-killed.black {
+        background-position: top 29px left 90px;
+    }
+
+    .horse-killed.white {
+        background-position: top 59px left 90px;
+    }
+
+    .bishop-killed.black {
+        background-position: top 29px left 120px;
+    }
+
+    .bishop-killed.white {
+        background-position: top 59px left 120px;
+    }
+
+    .queen-killed.black {
+        background-position: top 29px left 151px;
+    }
+
+    .queen-killed.white {
+        background-position: top 59px left 151px;
+    }
+
+    .king-killed.black {
+        background-position: top 29px left 182px;
+    }
+
+    .king-killed.white {
+        background-position: top 59px left 182px;
+    }
+}

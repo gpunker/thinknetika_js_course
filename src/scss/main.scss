@@ -6,7 +6,7 @@
     justify-content: space-around;
 }
 
-.desk-wrapper {
+.desk-container {
     display: inline-block;
     position: relative;
     padding: 0 0 70px 70px;
@@ -84,15 +84,5 @@
 
     .history {
         margin-right: 30px;
-    }
-}
-
-.killed-figures {
-    display: flex;
-    justify-content: space-between;
-
-    img {
-        width: 20px;
-        height: 20px;
     }
 }
