@@ -1,24 +1,28 @@
+import { COLORS } from "../chess_engine/constants/colors"
 import Game from "../chess_engine/game"
 import DeskView from "./desk_view"
 import HistoryView from "./history_view"
 import KilledFiguresView from "./killed_figures_view"
 
 export default class GameView {
-    /** @type HTMLElement */
+    /** @type { HTMLElement } */
     _loginForm = document.querySelector('#login')
+    /** @type { HTMLElement } */
+    _turnLabel = document.querySelector('#turn')
+
     _player1 = null
     _player2 = null
     
-    /** @type Game */
+    /** @type { Game } */
     _gameEngine = null
     
-    /** @type DeskView */
+    /** @type { DeskView } */
     _deskView = null
 
-    /** @type HistoryView */
+    /** @type { HistoryView } */
     _historyView = null
 
-    /** @type KilledFiguresView */
+    /** @type { KilledFiguresView } */
     _killedFiguresView = null
 
     constructor() {
@@ -26,7 +30,7 @@ export default class GameView {
     }
 
     /**
-     * @param {Event} e 
+     * @param { Event } e 
      */
     _register(e) {
         e.preventDefault()
@@ -38,8 +42,16 @@ export default class GameView {
     _startGame() {
         this._loginForm.hidden = true
         this._gameEngine = new Game()
-        this._deskView = new DeskView(this._gameEngine)
+        this._deskView = new DeskView(this, this._gameEngine)
         this._historyView = new HistoryView()
         this._killedFiguresView = new KilledFiguresView()
+    }
+
+    updateTurn() {
+        if (this._gameEngine.turn === COLORS.WHITE) {
+            this._turnLabel.textContent = 'Ход белых'
+        } else {
+            this._turnLabel.textContent = 'Ход черных'
+        }
     }
 }

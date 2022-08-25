@@ -1,4 +1,5 @@
 import Game from "../chess_engine/game"
+import GameView from "./game_view"
 
 export default class DeskView {
     _desk = document.querySelector('#desk')
@@ -8,15 +9,19 @@ export default class DeskView {
     /** @type { Game } */
     _gameEngine = null
 
-    constructor(game) {
-        this._gameEngine = game
+    /** @type { GameView } */
+    _gameView = null
+
+    constructor(gameView, gameEngine) {
+        this._gameView = gameView
+        this._gameEngine = gameEngine
         this._resetSelectListeners()
     }
 
-    perfomCell(e) {
+    _perfomCell(e) {
         const selected = e.target
         let cellCoord = null
-
+        
         if (this._isFigureSelected) {
             if (selected.classList.contains('figure')) {
                 if (selected.classList[2] === this._selectedFigure.classList[2]) {
@@ -37,6 +42,8 @@ export default class DeskView {
 
             this._move(selected, cellCoord)
         } else {
+            if (!this._canTouch(selected)) return
+
             this._clickOnFigure(selected)
         }
     }
@@ -56,6 +63,7 @@ export default class DeskView {
             this._selectedFigure = null
             this._isFigureSelected = false
             this._clearSelection()
+            this._gameView.updateTurn()
         }
     }
 
@@ -78,7 +86,11 @@ export default class DeskView {
 
     _resetSelectListeners() {
         this._cells.forEach(cell => {
-            cell.addEventListener('click', (e) => this.perfomCell(e))
+            cell.addEventListener('click', (e) => this._perfomCell(e))
         })
+    }
+
+    _canTouch(figure) {
+        return this._gameEngine.turn === figure.classList[2]
     }
 }

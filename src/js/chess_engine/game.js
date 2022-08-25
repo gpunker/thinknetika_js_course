@@ -10,7 +10,6 @@ export default class Game {
     _turn = COLORS.WHITE
     _history = []
     _killedFigures = []
-    _turnCount = 0
 
     static get states() { return Object.keys(STATES).map((key) => STATES[key]) }
 
@@ -18,7 +17,6 @@ export default class Game {
     get turn() { return this._turn }
     get history() { return this._history }
     get killedFigures() { return this._killedFigures }
-    get turnCount() { return this._turnCount }
     get state() { return this._state }
 
     selectFigure(coord) {
@@ -27,7 +25,16 @@ export default class Game {
 
     move(from, to) {
         let killed = this._desk.move(from, to)
-        
+        this._history.push(`${from}:${to}`)
+        this._changeTurn()
         if (killed) this._killedFigures.push(killed)
+    }
+
+    _changeTurn() {
+        if (this._turn === COLORS.WHITE) {
+            this._turn = COLORS.BLACK
+        } else {
+            this._turn = COLORS.WHITE
+        }
     }
 }
