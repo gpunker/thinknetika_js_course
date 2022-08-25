@@ -22,7 +22,7 @@ export default class Horse extends Figure {
                     let c = `${Desk.x[cellX + i]}${Desk.y[cellY + j]}`
                     
                     if (
-                        this.desk.coords[c] == null ||
+                        this.desk.coords[c] === null ||
                         (this.desk.coords[c] && this.desk.coords[c].color != this.color)
                     ) {
                         coords.push(c)
