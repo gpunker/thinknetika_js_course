@@ -1,0 +1,123 @@
+.figure {
+    width: 70px;
+    height: 70px;
+    background-size: 480px;
+    background-image: url($pieces);
+}
+
+.pawn.black {
+    background-position: top 70px left 74px;
+}
+
+.pawn.white {
+    background-position: top 151px left 74px;
+}
+
+.horse.black {
+    background-position: top 72px left 233px;
+}
+
+.horse.white {
+    background-position: top 152px left 233px;
+}
+
+.bishop.black {
+    background-position: top 235px left 314px;
+}
+
+.bishop.white {
+    background-position: top 315px left 314px;
+}
+
+.rook.black {
+    background-position: top 231px left 153px;
+}
+
+.rook.white {
+    background-position: top 311px left 153px;
+}
+
+.queen.black {
+    background-position: top 233px left -87px;
+}
+
+.queen.white {
+    background-position: top 314px left -87px;
+}
+
+.king.black {
+    background-position: top 393px left -7px;
+}
+
+.king.white {
+    background-position: top 313px left -7px;
+}
+
+.available {
+    border: 3px solid red !important;
+}
+
+.selected {
+    background-color: #0000ff4f;
+}
+
+.killed-figures {
+    display: flex;
+    justify-content: space-between;
+
+    .figure-killed {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-size: 182px;
+        background-image: url($pieces);
+    }
+
+    .pawn-killed.black {
+        background-position: top 29px left 30px;
+    }
+
+    .pawn-killed.white {
+        background-position: top 59px left 30px;
+    }
+
+    .rook-killed.black {
+        background-position: top 29px left 60px;
+    }
+
+    .rook-killed.white {
+        background-position: top 59px left 60px;
+    }
+
+    .horse-killed.black {
+        background-position: top 29px left 90px;
+    }
+
+    .horse-killed.white {
+        background-position: top 59px left 90px;
+    }
+
+    .bishop-killed.black {
+        background-position: top 29px left 120px;
+    }
+
+    .bishop-killed.white {
+        background-position: top 59px left 120px;
+    }
+
+    .queen-killed.black {
+        background-position: top 29px left 151px;
+    }
+
+    .queen-killed.white {
+        background-position: top 59px left 151px;
+    }
+
+    .king-killed.black {
+        background-position: top 29px left 182px;
+    }
+
+    .king-killed.white {
+        background-position: top 59px left 182px;
+    }
+}

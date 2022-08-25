@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: './src/index.js',
     output: {
         filename: 'main.[fullhash].js',
@@ -14,13 +14,19 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'styles.[fullhash].css'
         }),
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({
+            template: './src/index.html'
+        })
     ],
     module: {
         rules: [
             {
                 test: /\.scss$/i,
                 use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
             }
         ]
     }
