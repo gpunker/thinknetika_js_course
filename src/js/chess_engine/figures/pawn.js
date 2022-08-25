@@ -10,12 +10,18 @@ export default class Pawn extends Figure {
     _doubleMove = true
     _canEvolve = false
 
-    get canEvolve() { return this._canEvolve } 
+    get canEvolve() { return this._canEvolve }
+    
+    move(to) {
+        super.move(to)
+        this._doubleMove = false
+    }
 
     moves() {
         const coords = []
         const cellX = Desk.x.indexOf(this.cell[0])
         const cellY = Desk.y.indexOf(this.cell[1])
+
 
         for (let y = -2; y <= 2; y++) {
             let cY = `${Desk.x[cellX]}${Desk.y[cellY + y]}`

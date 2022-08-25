@@ -54,4 +54,17 @@ export default class Desk {
     canMove(from, to) {
         return this._coords[from].moves().includes(to)
     }
+
+    move(from, to) {
+        if (!this.canMove(from, to)) throw Error('Ход невозможен!')
+
+        const figure = this._coords[from]
+        let killedFigure = this._coords[to]
+
+        figure.move(to)
+        this._coords[to] = figure
+        this._coords[from] = null
+
+        return killedFigure
+    }
 }

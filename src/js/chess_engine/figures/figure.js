@@ -15,14 +15,18 @@ export default class Figure {
     get desk() { return this._desk }
     get cell() { return this._cell }
 
+    move(to) {
+        this._cell = to
+    }
+
     moves() {
         throw Error('Function `moves` is not implemented')
     }
 
     movesY() {
         const coords = []
-        const cellX = Desk.x.indexOf(this.cell[0])
-        const cellY = Desk.y.indexOf(this.cell[1])
+        const cellX = Desk.x.indexOf(this._cell[0])
+        const cellY = Desk.y.indexOf(this._cell[1])
 
         // посчитаем ходы по Y
         //верх
@@ -56,8 +60,8 @@ export default class Figure {
 
     movesX() {
         const coords = []
-        const cellX = Desk.x.indexOf(this.cell[0])
-        const cellY = Desk.y.indexOf(this.cell[1])
+        const cellX = Desk.x.indexOf(this._cell[0])
+        const cellY = Desk.y.indexOf(this._cell[1])
 
         // посчитаем ходы по X
         // вправо
@@ -91,8 +95,8 @@ export default class Figure {
 
     movesXY() {
         const coords = []
-        const cellX = Desk.x.indexOf(this.cell[0])
-        const cellY = Desk.y.indexOf(this.cell[1])
+        const cellX = Desk.x.indexOf(this._cell[0])
+        const cellY = Desk.y.indexOf(this._cell[1])
         let canLeft = true;
         let canRight = true;
 

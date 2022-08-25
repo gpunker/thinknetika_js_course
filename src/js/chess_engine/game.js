@@ -24,4 +24,10 @@ export default class Game {
     selectFigure(coord) {
         return this._desk._coords[coord]
     }
+
+    move(from, to) {
+        let killed = this._desk.move(from, to)
+        
+        if (killed) this._killedFigures.push(killed)
+    }
 }
