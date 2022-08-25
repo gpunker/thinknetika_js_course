@@ -25,8 +25,14 @@ export default class GameView {
     /** @type { KilledFiguresView } */
     _killedFiguresView = null
 
+    /** @type { HTMLElement } */
+    _changePawnPanel = document.querySelector('#changePawnPanel')
+
     constructor() {
         this._loginForm.addEventListener('submit', (e) => this._register(e))
+        this._changePawnPanel.querySelectorAll('input').forEach(input => {
+            input.addEventListener('click', (e) => this.changePawn(e.target.value))
+        })
     }
 
     /**
@@ -51,6 +57,19 @@ export default class GameView {
         this._updateTurn()
         this._updateHistory()
         this._updateKilledFigures()
+    }
+
+    showChangePawnPanel() {
+        const game = document.querySelector('.game-divider')
+        game.classList.add('hidden')
+        this._changePawnPanel.classList.remove('hidden')
+    }
+
+    changePawn(figureType) {
+        this._deskView.changePawn(figureType)
+        this._changePawnPanel.classList.add('hidden')
+        const game = document.querySelector('.game-divider')
+        game.classList.remove('hidden')
     }
 
     _updateTurn() {

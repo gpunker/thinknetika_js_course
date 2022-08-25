@@ -8,9 +8,15 @@ export default class Pawn extends Figure {
     }
 
     _doubleMove = true
-    _canEvolve = false
 
-    get canEvolve() { return this._canEvolve }
+    canEvolve() {
+        switch(this._color) {
+            case COLORS.WHITE:
+                return Desk.y.indexOf(this._cell[1]) === 7
+            case COLORS.BLACK:
+                return Desk.y.indexOf(this._cell[1]) === 0
+        }
+    }
     
     move(to) {
         super.move(to)

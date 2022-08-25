@@ -18,6 +18,17 @@ export default class DeskView {
         this._resetSelectListeners()
     }
 
+    changePawn(figureType) {
+        const figure = this._gameEngine.desk.changePawn(figureType)
+        const cell = document.querySelector(`#${figure.cell}`)
+
+        const viewFigure = document.createElement('div')
+        viewFigure.classList.add('figure', figure.type(), figure.color)
+
+        cell.textContent = ''
+        cell.append(viewFigure)
+    }
+
     _perfomCell(e) {
         const selected = e.target
         let cellCoord = null
@@ -64,6 +75,10 @@ export default class DeskView {
             this._isFigureSelected = false
             this._clearSelection()
             this._gameView.update()
+
+            if (this._gameEngine.desk.canEvolvePawn()) {
+                this._gameView.showChangePawnPanel()
+            }
         }
     }
 

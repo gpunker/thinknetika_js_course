@@ -2,6 +2,11 @@ import { Pawn, Horse, Bishop, Rook, Queen, King } from './figures'
 import { COLORS } from "./constants/colors"
 
 export default class Desk {
+    _coords = {}
+
+    /** @type { Pawn } */
+    _evolvePawn = null
+
     constructor() {
         // генерируем координаты
         let coords = {}
@@ -44,8 +49,6 @@ export default class Desk {
         this._coords = coords
     }
 
-    _coords = {}
-
     static get y() { return ['1', '2', '3', '4', '5', '6', '7', '8'] }
     static get x() { return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] }
 
@@ -65,6 +68,38 @@ export default class Desk {
         this._coords[to] = figure
         this._coords[from] = null
 
+        if (figure.type() === 'pawn' && figure.canEvolve()) this._evolvePawn = figure
+
         return killedFigure
+    }
+
+    canEvolvePawn() {
+        return this._evolvePawn !== null
+    }
+
+    /**
+     * @param {string} type 
+     */
+    changePawn(type) {
+        let newFigure = null
+        switch(type) {
+            case 'rook':
+                newFigure = new Rook(this._evolvePawn.color, this, this._evolvePawn.cell)
+                break
+            case 'bishop':
+                newFigure = new Bishop(this._evolvePawn.color, this, this._evolvePawn.cell)
+                break
+            case 'horse':
+                newFigure = new Horse(this._evolvePawn.color, this, this._evolvePawn.cell)
+                break
+            case 'queen':
+                newFigure = new Queen(this._evolvePawn.color, this, this._evolvePawn.cell)
+                break
+        }
+
+        this._coords[this._evolvePawn.cell] = newFigure
+        this._evolvePawn = null
+
+        return newFigure
     }
 }
