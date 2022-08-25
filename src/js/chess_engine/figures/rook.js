@@ -9,4 +9,8 @@ export default class Rook extends Figure {
     moves() {
         return this.movesX().concat(this.movesY())
     }
+
+    type() {
+        return 'rook'
+    }
 }

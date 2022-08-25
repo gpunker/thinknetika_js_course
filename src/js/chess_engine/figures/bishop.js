@@ -9,4 +9,8 @@ export default class Bishop extends Figure {
     moves() {
         return this.movesXY()
     }
+
+    type() {
+        return 'bishop'
+    }
 }

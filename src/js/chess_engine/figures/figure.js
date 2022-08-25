@@ -161,4 +161,8 @@ export default class Figure {
 
         return coords
     }
+
+    type() {
+        throw Error('Not implemented')
+    }
 }

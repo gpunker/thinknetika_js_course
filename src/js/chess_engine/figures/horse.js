@@ -32,22 +32,10 @@ export default class Horse extends Figure {
             }
         }
 
-
-
-
-        // for (let i = 0; i < ms.length; i++) {
-        //     newX = Desk.x[cellX + ms[i][0]]
-        //     newY = Desk.y[cellY + ms[i][1]]
-
-        //     const coordsIndex = `${newX}${newY}`
-
-        //     if (this.desk.coords[coordsIndex] === null || 
-        //         (this.desk.coords[coordsIndex] && this.desk.coords[coordsIndex].color !== this.color)
-        //     ) {
-        //         coords.push(coordsIndex)
-        //     }
-        // }
-
         return coords
+    }
+
+    type() {
+        return 'horse'
     }
 }

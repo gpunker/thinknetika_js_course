@@ -50,6 +50,7 @@ export default class GameView {
     update() {
         this._updateTurn()
         this._updateHistory()
+        this._updateKilledFigures()
     }
 
     _updateTurn() {
@@ -62,5 +63,9 @@ export default class GameView {
 
     _updateHistory() {
         this._historyView.fill(this._gameEngine.history)
+    }
+
+    _updateKilledFigures() {
+        this._killedFiguresView.fill(this._gameEngine.killedFigures)
     }
 }

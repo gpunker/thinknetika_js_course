@@ -28,4 +28,8 @@ export default class King extends Figure {
 
         return coords
     }
+
+    type() {
+        return 'king'
+    }
 }

@@ -47,4 +47,8 @@ export default class Pawn extends Figure {
 
         return coords
     }
+
+    type() {
+        return 'pawn'
+    }
 }
