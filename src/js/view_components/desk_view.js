@@ -10,29 +10,75 @@ export default class DeskView {
 
     constructor(game) {
         this._gameEngine = game
-        this._cells.forEach(cell => cell.addEventListener('click', (e) => this.move(e)))
+        this._resetSelectListeners()
     }
 
-    // Возможно надо переименовать метод
-    move(e) {
-        let figure = e.target
+    perfomCell(e) {
+        const selected = e.target
+        let cellCoord = null
 
         if (this._isFigureSelected) {
-            this._cells.forEach(cell => cell.classList.remove('available'))
-            document.querySelectorAll('.figure').forEach(elem => elem.classList.remove('selected'))
-            this._isFigureSelected = false
-        } else {
-            if (figure.className.includes('figure')) {
-                // запрашиваем из движка достыпные ходы для фигуры
-                let availableMoves = this._gameEngine.selectFigure(figure.parentElement.id).moves()
-    
-                let availableCells = Array.prototype.slice.call(this._cells).filter(cell => availableMoves.includes(cell.id))
-    
-                figure.classList.add('selected')
-                availableCells.forEach(cell => cell.classList.add('available'))
+            if (selected.classList.contains('figure')) {
+                if (selected.classList[2] === this._selectedFigure.classList[2]) {
+                    this._clearSelection()
+                    this._isFigureSelected = false
+                    this._selectedFigure = null
+                    this._clickOnFigure(selected)
+                    return
+                }
+                cellCoord = selected.parentElement.id
+            } else {
+                cellCoord = selected.id
             }
 
-            this._isFigureSelected = true
+            if (!document.querySelector(`#${cellCoord}`).classList.contains('available')) {
+                return
+            }
+
+            this._move(selected, cellCoord)
+        } else {
+            this._clickOnFigure(selected)
         }
+    }
+
+    _move(selected, to) {
+        if (this._gameEngine.desk.canMove(this._selectedFigure.parentElement.id, to)) {
+            this._gameEngine.move(this._selectedFigure.parentElement.id, to)
+
+            if (selected.classList.contains('figure') && selected.classList[2] !== this._selectedFigure.classList[2]) {
+                selected.parentElement.append(this._selectedFigure)
+                selected.remove()
+                // помещаем в список убитых
+            } else {
+                selected.append(this._selectedFigure)
+            }
+
+            this._selectedFigure = null
+            this._isFigureSelected = false
+            this._clearSelection()
+        }
+    }
+
+    _clearSelection() {
+        this._cells.forEach(cell => cell.classList.remove('available'))
+        document.querySelectorAll('.figure').forEach(elem => elem.classList.remove('selected'))
+    }
+
+    _clickOnFigure(selected) {
+        if (selected.className.includes('figure')) {
+            // запрашиваем из движка достыпные ходы для фигуры
+            const availableMoves = this._gameEngine.selectFigure(selected.parentElement.id).moves()
+            let availableCells = Array.prototype.slice.call(this._cells).filter(cell => availableMoves.includes(cell.id))
+            selected.classList.add('selected')
+            availableCells.forEach(cell => cell.classList.add('available'))
+            this._isFigureSelected = true
+            this._selectedFigure = selected
+        }
+    }
+
+    _resetSelectListeners() {
+        this._cells.forEach(cell => {
+            cell.addEventListener('click', (e) => this.perfomCell(e))
+        })
     }
 }
