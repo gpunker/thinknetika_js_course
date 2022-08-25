@@ -1,9 +1,15 @@
+import Game from "../chess_engine/game"
+
 export default class DeskView {
     _desk = document.querySelector('#desk')
     _cells = this._desk.querySelectorAll('.cell')
     _isFigureSelected = false
+    
+    /** @type { Game } */
+    _gameEngine = null
 
-    constructor() {
+    constructor(game) {
+        this._gameEngine = game
         this._cells.forEach(cell => cell.addEventListener('click', (e) => this.move(e)))
     }
 
@@ -18,7 +24,7 @@ export default class DeskView {
         } else {
             if (figure.className.includes('figure')) {
                 // запрашиваем из движка достыпные ходы для фигуры
-                let availableMoves = ['F3', 'H3']
+                let availableMoves = this._gameEngine.selectFigure(figure.parentElement.id).moves()
     
                 let availableCells = Array.prototype.slice.call(this._cells).filter(cell => availableMoves.includes(cell.id))
     

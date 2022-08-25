@@ -20,4 +20,8 @@ export default class Game {
     get killedFigures() { return this._killedFigures }
     get turnCount() { return this._turnCount }
     get state() { return this._state }
+
+    selectFigure(coord) {
+        return this._desk._coords[coord]
+    }
 }
