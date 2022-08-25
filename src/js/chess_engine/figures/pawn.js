@@ -1,5 +1,6 @@
 import Desk from "../desk"
 import Figure from "./figure"
+import { COLORS } from "../constants/colors"
 
 export default class Pawn extends Figure {
     constructor(color, desk, cell) {
@@ -13,32 +14,28 @@ export default class Pawn extends Figure {
 
     moves() {
         const coords = []
-
-        const ms = [[0,1], [-1, 1], [1,1]]
-        if (this._doubleMove) ms.push([0,2])
-
         const cellX = Desk.x.indexOf(this.cell[0])
         const cellY = Desk.y.indexOf(this.cell[1])
-        let newX = null
-        let newY = null
 
-        for (let i = 0; i < ms.length; i++) {
-            if (this.color === 'white') {
-                newX = Desk.x[cellX + ms[i][0]]
-                newY = Desk.y[cellY + ms[i][1]]
-            } else {
-                newX = Desk.x[cellX - ms[i][0]]
-                newY = Desk.y[cellY - ms[i][1]]
-            }
-
-            const coordsIndex = `${newX}${newY}`
-
-            if (this.desk.coords[coordsIndex] === null) {
-                // в теории сюда можно запихать блок для доп обработки
-                if (ms[i][0] !== 0 && this.desk.coords[coordsIndex] === null) {
-                    continue
+        for (let y = -2; y <= 2; y++) {
+            let cY = `${Desk.x[cellX]}${Desk.y[cellY + y]}`
+            let cXLeft = `${Desk.x[cellX - 1]}${Desk.y[cellY + y]}`
+            let cXRight = `${Desk.x[cellX + 1]}${Desk.y[cellY + y]}`
+            
+            if (
+                //условия для белых
+                (this.color === COLORS.WHITE && (y === 1 || (y === 2 && this._doubleMove))) 
+                || 
+                //условия для черных
+                (this.color === COLORS.BLACK && (y === -1 || (y === -2 && this._doubleMove)))
+            ) {
+                coords.push(cY)
+                
+                // возможность рубить по диагонали
+                if ([-1, 1].includes(y)) {
+                    if (this.desk.coords[cXRight] && this.desk.coords[cXRight].color != this.color) coords.push(cXRight) 
+                    if (this.desk.coords[cXLeft] && this.desk.coords[cXLeft].color != this.color) coords.push(cXLeft) 
                 }
-                coords.push(coordsIndex)
             }
         }
 
