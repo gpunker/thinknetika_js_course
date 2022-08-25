@@ -28,7 +28,7 @@ export default class Figure {
         //верх
         for(let i = cellY + 1; i < Desk.y.length; i++) {
             let c = `${Desk.x[cellX]}${Desk.y[i]}`
-            if (this.desk.coords[c] == null) {
+            if (this.desk.coords[c] === null) {
                 coords.push(c)
             } else if (this.desk.coords[c] && this.desk.coords[c].color !== this.color) {
                 coords.push(c)
@@ -41,7 +41,7 @@ export default class Figure {
         //вниз
         for(let i = cellY - 1; i >= 0; i--) {
             let c = `${Desk.x[cellX]}${Desk.y[i]}`
-            if (this.desk.coords[c] == null) {
+            if (this.desk.coords[c] === null) {
                 coords.push(c)
             } else if (this.desk.coords[c] && this.desk.coords[c].color !== this.color) {
                 coords.push(c)
@@ -63,7 +63,7 @@ export default class Figure {
         // вправо
         for(let i = cellX + 1; i < Desk.x.length; i++) {
             let c = `${Desk.x[i]}${Desk.y[cellY]}`
-            if (this.desk.coords[c] == null) {
+            if (this.desk.coords[c] === null) {
                 coords.push(c)
             } else if (this.desk.coords[c] && this.desk.coords[c].color !== this.color) {
                 coords.push(c)
@@ -76,7 +76,7 @@ export default class Figure {
         // влево
         for(let i = cellX - 1; i >= 0; i--) {
             let c = `${Desk.x[i]}${Desk.y[cellY]}`
-            if (this.desk.coords[c] == null) {
+            if (this.desk.coords[c] === null) {
                 coords.push(c)
             } else if (this.desk.coords[c] && this.desk.coords[c].color !== this.color) {
                 coords.push(c)
@@ -102,7 +102,7 @@ export default class Figure {
             let cRight = `${Desk.x[cellX + j]}${Desk.y[i]}`
 
             if (canLeft) {
-                if (this.desk.coords[cLeft] == null) {
+                if (this.desk.coords[cLeft] === null) {
                     coords.push(`${Desk.x[cellX - j]}${Desk.y[i]}`)
                 } else if (this.desk.coords[cLeft] && this.desk.coords[cLeft].color !== this.color) {
                     coords.push(`${Desk.x[cellX - j]}${Desk.y[i]}`)
@@ -113,7 +113,7 @@ export default class Figure {
             }
 
             if (canRight) {
-                if (this.desk.coords[cRight] == null) {
+                if (this.desk.coords[cRight] === null) {
                     coords.push(`${Desk.x[cellX + j]}${Desk.y[i]}`)
                 } else if (this.desk.coords[cRight] && this.desk.coords[cRight].color !== this.color) {
                     coords.push(`${Desk.x[cellX + j]}${Desk.y[i]}`)
@@ -133,7 +133,7 @@ export default class Figure {
             let cRight = `${Desk.x[cellX + j]}${Desk.y[i]}`
 
             if (canLeft) {
-                if (this.desk.coords[cLeft] == null) {
+                if (this.desk.coords[cLeft] === null) {
                     coords.push(`${Desk.x[cellX - j]}${Desk.y[i]}`)
                 } else if (this.desk.coords[cLeft] && this.desk.coords[cLeft].color !== this.color) {
                     coords.push(`${Desk.x[cellX - j]}${Desk.y[i]}`)
@@ -144,7 +144,7 @@ export default class Figure {
             }
 
             if (canRight) {
-                if (this.desk.coords[cRight] == null) {
+                if (this.desk.coords[cRight] === null) {
                     coords.push(`${Desk.x[cellX + j]}${Desk.y[i]}`)
                 } else if (this.desk.coords[cRight] && this.desk.coords[cRight].color !== this.color) {
                     coords.push(`${Desk.x[cellX + j]}${Desk.y[i]}`)
