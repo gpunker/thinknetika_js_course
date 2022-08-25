@@ -3,10 +3,18 @@ export default class HistoryView {
 
     constructor() {}
 
-    add(from, to) {
-        let moveElement = document.createElement('div')
-        moveElement.classList.add('history-move')
-        moveElement.textContent = `${from}:${to}`
-        this._historyContainer.append(moveElement)
+    /**
+     * @param { Array<String> } moves 
+     */
+    fill(moves) {
+        this._historyContainer.textContent = ''
+
+        moves.forEach(move => {
+            let moveElement = document.createElement('div')
+            moveElement.classList.add('history-move')
+            moveElement.textContent = move
+            this._historyContainer.append(moveElement)
+        })
+        
     }
 }

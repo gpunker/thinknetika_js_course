@@ -63,7 +63,7 @@ export default class DeskView {
             this._selectedFigure = null
             this._isFigureSelected = false
             this._clearSelection()
-            this._gameView.updateTurn()
+            this._gameView.update()
         }
     }
 

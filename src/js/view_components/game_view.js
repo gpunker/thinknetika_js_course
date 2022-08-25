@@ -47,11 +47,20 @@ export default class GameView {
         this._killedFiguresView = new KilledFiguresView()
     }
 
-    updateTurn() {
+    update() {
+        this._updateTurn()
+        this._updateHistory()
+    }
+
+    _updateTurn() {
         if (this._gameEngine.turn === COLORS.WHITE) {
             this._turnLabel.textContent = 'Ход белых'
         } else {
             this._turnLabel.textContent = 'Ход черных'
         }
+    }
+
+    _updateHistory() {
+        this._historyView.fill(this._gameEngine.history)
     }
 }
