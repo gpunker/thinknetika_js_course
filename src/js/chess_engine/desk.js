@@ -50,4 +50,8 @@ export default class Desk {
     static get x() { return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] }
 
     get coords() { return this._coords }
+
+    canMove(from, to) {
+        return this._coords[from].moves().includes(to)
+    }
 }
