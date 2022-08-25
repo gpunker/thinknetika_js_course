@@ -30,18 +30,36 @@ export default class Pawn extends Figure {
             
             if (
                 //условия для белых
-                (this.color === COLORS.WHITE && (y === 1 || (y === 2 && this._doubleMove))) 
+                (this.color === COLORS.WHITE && (y === 1 || (y === 2 && this._doubleMove)) && !this.desk.coords[cY]) 
                 || 
                 //условия для черных
-                (this.color === COLORS.BLACK && (y === -1 || (y === -2 && this._doubleMove)))
+                (this.color === COLORS.BLACK && (y === -1 || (y === -2 && this._doubleMove)) && !this.desk.coords[cY])
             ) {
                 coords.push(cY)
-                
-                // возможность рубить по диагонали
-                if ([-1, 1].includes(y)) {
-                    if (this.desk.coords[cXRight] && this.desk.coords[cXRight].color != this.color) coords.push(cXRight) 
-                    if (this.desk.coords[cXLeft] && this.desk.coords[cXLeft].color != this.color) coords.push(cXLeft) 
-                }
+            }
+
+            // возможность рубить по диагонали
+            if (
+                (this.color === COLORS.WHITE && 
+                    (y === 1 && 
+                        (
+                            this.desk.coords[cXRight] && this.desk.coords[cXRight].color != this.color ||
+                            this.desk.coords[cXLeft] && this.desk.coords[cXLeft].color != this.color
+                        )
+                    )
+                )
+                ||
+                (this.color === COLORS.BLACK && 
+                    (y === -1 &&
+                        (
+                            this.desk.coords[cXRight] && this.desk.coords[cXRight].color != this.color ||
+                            this.desk.coords[cXLeft] && this.desk.coords[cXLeft].color != this.color
+                        )
+                    )
+                )
+            ) {
+                if (this.desk.coords[cXRight] && this.desk.coords[cXRight].color != this.color) coords.push(cXRight) 
+                if (this.desk.coords[cXLeft] && this.desk.coords[cXLeft].color != this.color) coords.push(cXLeft) 
             }
         }
 
